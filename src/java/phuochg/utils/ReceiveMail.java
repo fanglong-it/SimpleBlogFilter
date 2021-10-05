@@ -52,7 +52,7 @@ public class ReceiveMail {
  
     // Step1: setup Mail Server
     mailServerProperties = System.getProperties();
-    mailServerProperties.put("mail.smtp.port", "58");
+    mailServerProperties.put("mail.smtp.port", "587");
     mailServerProperties.put("mail.smtp.auth", "true");
     mailServerProperties.put("mail.smtp.starttls.enable", "true");
  
@@ -66,8 +66,8 @@ public class ReceiveMail {
 //    generateMailMessage.addRecipient(Message.RecipientType.CC, new InternetAddress("cc@gmail.com")); //Địa chỉ cc gmail
  
  
-    mailMessage.setSubject("Resuoure Sharing Project");
-    mailMessage.setText("This mail Is send by Resuoure Sharing Project \n YOUR CODE IS :" + code);
+    mailMessage.setSubject("Simple Blog");
+    mailMessage.setText("This mail Is send by Simple Blog \n YOUR CODE IS :" + code);
  
     // Step3: Send mail
     Transport transport = getMailSession.getTransport("smtp");
