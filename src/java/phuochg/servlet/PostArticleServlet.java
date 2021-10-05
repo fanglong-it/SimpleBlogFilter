@@ -57,6 +57,7 @@ public class PostArticleServlet extends HttpServlet {
                 msg = "Post Fail try again";
                 url = (String) siteMap.get(POST_ARTICLE);
             }
+            request.setAttribute("SEARCH_MSG", msg);
         } catch (Exception e) {
             log("Error at PostArticleServlet:" + e.toString());
         } finally {

@@ -71,6 +71,7 @@
             <c:if test="${requestScope.SEARCH_MSG != null}">
                 <p style="color: red">${requestScope.SEARCH_MSG}</p>
             </c:if>
+
             <table border="" class="table table-striped">
                 <thead>
                     <tr>
@@ -98,7 +99,7 @@
                             <td>${a.status}</td>
                             <td>
                                 <c:if test="${a.status eq 'Active'}">
-
+                                    <a href="deleteRequest?titleId=${a.titleId}" class="btn btn-danger">Delete</a>
                                 </c:if>
                                 <c:if test="${a.status eq 'New'}">
                                     <a href="deleteRequest?titleId=${a.titleId}" class="btn btn-danger">Delete</a>

@@ -20,61 +20,63 @@
     </head>
     <body>
         <h1>Home For User</h1>
-    <c:if test="${sessionScope.ACC != null}">
-        <h2>Welcome, ${sessionScope.ACC.email}</h2>
-        <a href="logout" class="btn btn-danger" >Logout</a>
-    </c:if>
-    <c:if test="${sessionScope.ACC == null}">
-        <c:redirect url="login.jsp"/>
-    </c:if>
-    <c:if test="${sessionScope.ACC.roleId eq 'AD'}">
-        <c:redirect url="homeForAdmin.jsp"/>
-    </c:if>
-    <hr>
-    <a class="btn btn-primary" href="search?searchValue=" >Back Home</a>
-    <hr>
-
-    <c:if test="${requestScope.REQUEST_ARTICLE_MSG != null}">
-        <p style="color: red">${requestScope.REQUEST_ARTICLE_MSG}</p>
-    </c:if>
-    <table border="" class="table table-striped">
-        <thead>
-            <tr>
-                <th>Title</th>
-                <th>Description</th>
-                <th>Content Id</th>
-                <th>Author</th>
-                <th>PostDate</th>
-                <th>Status</th>
-            </tr>
-        </thead>
-        <tbody>
-        <c:forEach var="a" items="${requestScope.LIST_REQUEST_ARTICLE}">
-            <tr>
-
-                <td>${a.titleName}</td>
-                <td>${a.description}</td>
-                <td>${a.contentId}</td>
-                <td>${a.email}</td>
-                <td>${a.postDate}</td>
-                <td>${a.status}</td>
-                <td>
-            <c:if test="${a.status eq 'New'}">
-                <p class="text-primary">Waiting for Admin Approve</p>
-            </c:if>
-            <c:if test="${a.status eq 'Active'}">
-                <p class="text-warning">Done</p>
-            </c:if>
-            <c:if test="${a.status eq 'Delete'}">
-                <p class="text-warning">This Article have been Delete from Admin</p>
-            </c:if>
-            </td>
-            </tr>
-        </c:forEach>
-    </tbody>
-</table>
+        <c:if test="${sessionScope.ACC != null}">
+            <h2>Welcome, ${sessionScope.ACC.email}</h2>
+            <a href="logout" class="btn btn-danger" >Logout</a>
+        </c:if>
+        <c:if test="${sessionScope.ACC == null}">
+            <c:redirect url="loginPage"/>
+        </c:if>
+        <c:if test="${sessionScope.ACC.roleId eq 'AD'}">
+            <c:redirect url="homeForAdmin.jsp"/>
+        </c:if>
+        <hr>
+        <a class="btn btn-primary" href="search?searchValue=" >Back Home</a>
+        <hr>
 
 
+        <%--<c:if test="${requestScope.REQUEST_ARTICLE_MSG != null}">
+            <p style="color: red">${requestScope.REQUEST_ARTICLE_MSG}</p>
+        </c:if>--%>
+        
+        <table border="" class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Content Id</th>
+                    <th>Author</th>
+                    <th>PostDate</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <c:forEach var="a" items="${requestScope.LIST_REQUEST_ARTICLE}">
+                    <tr>
 
-</body>
+                        <td>${a.titleName}</td>
+                        <td>${a.description}</td>
+                        <td>${a.contentId}</td>
+                        <td>${a.email}</td>
+                        <td>${a.postDate}</td>
+                        <td>${a.status}</td>
+                        <td>
+                            <c:if test="${a.status eq 'New'}">
+                                <p class="text-primary">Waiting for Admin Approve</p>
+                            </c:if>
+                            <c:if test="${a.status eq 'Active'}">
+                                <p class="text-warning">Done</p>
+                            </c:if>
+                            <c:if test="${a.status eq 'Delete'}">
+                                <p class="text-warning">This Article have been Delete from Admin</p>
+                            </c:if>
+                        </td>
+                    </tr>
+                </c:forEach>
+            </tbody>
+        </table>
+
+
+
+    </body>
 </html>

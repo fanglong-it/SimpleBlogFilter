@@ -25,7 +25,7 @@ import phuochg.article.ArticleDTO;
 public class RequestArticlePageServlet extends HttpServlet {
 
     private static final String REQUEST_PAGE_USER = "viewRequestArticle";
-    private static final String LOGIN_PAGE = "homePage";
+    private static final String LOGIN_PAGE = "loginPage";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>

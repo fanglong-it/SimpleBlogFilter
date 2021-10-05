@@ -46,7 +46,7 @@ public class DeleteRequestServlet extends HttpServlet {
             String msg = "";
             if (articleDao.updateArticle("Delete", titleId)) {
                 msg = "Delete Success full";
-                url = "SearchServlet?searchValue=&option=Delete";
+                url = "SearchServlet?searchValue=&option=New";
             } else {
                 msg = "Delete Fail";
 

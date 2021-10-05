@@ -35,10 +35,15 @@
                 <c:if test="${not empty requestScope.COMMENT_MSG}">
                     <p style="color: red">${requestScope.COMMENT_MSG}</p>
                 </c:if>
+                <c:if test="${not empty requestScope.CREATEACCOUNT_MSG}">
+                    <p style="color: red">${requestScope.CREATEACCOUNT_MSG}</p>
+                </c:if>
                 <br>
                 <button type="submit" name ="btnAction" class="btn btn-primary">Submit</button>
                 <a class="btn btn-primary" href="registerPage">Register</a>
-                <a class="btn btn-primary" href="resendCodePage">Resend Code</a>
+                <!--<a class="btn btn-primary" href="resendCodePage">Resend Code</a>-->
+
+
                 <a class="btn btn-danger" href="search?searchValue=">Home Page</a>
             </div>
         </form>

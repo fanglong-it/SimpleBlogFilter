@@ -45,7 +45,7 @@ public class SearchServlet extends HttpServlet {
         ServletContext context = request.getServletContext();
         Properties siteMap = (Properties) context.getAttribute("SITE_MAP");
         url = (String) siteMap.get(url);
-        
+
         try {
             String search = request.getParameter("searchValue");
             ArticleDAO articleDao = new ArticleDAO();
@@ -66,28 +66,32 @@ public class SearchServlet extends HttpServlet {
                 pageLoad = Integer.parseInt(request.getParameter("page"));
             }
 
-            double page = Math.ceil(articleDao.getCountAllArticle() / 1);
+            double page = Math.ceil(articleDao.getCountAllArticle() / 10);
 
             request.setAttribute("page", page);
-            
+
             if (acc == null) {
                 list = articleDao.searchArticleUser(search, pageLoad, numberOfPage);
                 msg = "Success";
+                request.setAttribute("SEARCH_MSG", msg);
             } else if (acc.getRoleId().equals("US")) {
                 list = articleDao.searchArticleUser(search, pageLoad, numberOfPage);
-                msg = "Success";
+                msg = "Search Success";
             } else if (acc.getRoleId().equals("AD")) {
                 String option = request.getParameter("option");
                 if (option == null || option.equals("")) {
                     list = articleDao.searchArticleAdmin(search, "", pageLoad, numberOfPage);
+                    msg = "Search Success";
                 } else if (option.equals("New")) {
                     list = articleDao.searchArticleAdmin(search, "New", pageLoad, numberOfPage);
+                    msg = "Search New";
                 } else if (option.equals("Active")) {
                     list = articleDao.searchArticleAdmin(search, "Active", pageLoad, numberOfPage);
+                    msg = "Search Active";
                 } else if (option.equals("Delete")) {
                     list = articleDao.searchArticleAdmin(search, "Delete", pageLoad, numberOfPage);
+                    msg = "Search Delete";
                 }
-                msg = "Success";
             }
             if (!list.isEmpty()) {
                 request.setAttribute("LIST_ARTICLE", list);

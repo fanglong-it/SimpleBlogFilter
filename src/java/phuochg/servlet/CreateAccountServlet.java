@@ -18,6 +18,7 @@ import phuochg.account.AccountDTO;
 import phuochg.users.UserDAO;
 import phuochg.users.UserDTO;
 import phuochg.utils.ReceiveMail;
+import phuochg.utils.encrypted;
 
 /**
  *
@@ -27,6 +28,7 @@ public class CreateAccountServlet extends HttpServlet {
 
     private static final String CREATE_PAGE = "registerPage";
     private static final String CONFIRM_CODE = "confirmCodePage";
+    private static final String LOGIN_PAGE = "loginPage";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -67,17 +69,19 @@ public class CreateAccountServlet extends HttpServlet {
                 msg = "The Account Existed, Choose new Account!";
             }
             if (check) {
-                AccountDTO acc = new AccountDTO(email, password, "US", "New");
+//                encrypted.encryptedPassword(password);
+                AccountDTO acc = new AccountDTO(email, encrypted.encryptedPassword(password), "US", "Active");
                 UserDTO user = new UserDTO(email, name, phone);
                 accDao.insertAccount(acc);
                 userDao.insertUser(user);
-                ReceiveMail receive = new ReceiveMail();
-                String code = receive.randomAlphaNumeric(6);
-                session.setAttribute("ACTIVE_ACCOUNT", email);
-                session.setAttribute("CODE", code);
-                receive.sendText(code, email);
-                msg = "Please input confirm code sended in your email: " + email;
-                url = (String) siteMap.get(CONFIRM_CODE);
+//                ReceiveMail receive = new ReceiveMail();
+//                String code = receive.randomAlphaNumeric(6);
+//                session.setAttribute("ACTIVE_ACCOUNT", email);
+//                session.setAttribute("CODE", code);
+//                receive.sendText(code, email);
+//                msg = "Please input confirm code sended in your email: " + email;
+                msg = "Create success, Please Login !";
+                url = (String) siteMap.get(LOGIN_PAGE);
             } else {
                 url = (String) siteMap.get(CREATE_PAGE);
             }

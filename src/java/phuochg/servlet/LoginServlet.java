@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import phuochg.account.AccountDAO;
 import phuochg.account.AccountDTO;
+import phuochg.utils.encrypted;
 
 /**
  *
@@ -49,7 +50,7 @@ public class LoginServlet extends HttpServlet {
 
             AccountDAO AccDao = new AccountDAO();
 
-            AccountDTO acc = AccDao.login(Username, Password);
+            AccountDTO acc = AccDao.login(Username, encrypted.encryptedPassword(Password));
             HttpSession session = request.getSession();
             String msg = "";
             if (acc == null) {

@@ -46,7 +46,7 @@ public class AcceptRequestServlet extends HttpServlet {
             String msg = "";
             if (articleDao.updateArticle("Active", titleId)) {
                 msg = "Active Successfull";
-                url = "SearchServlet?searchValue=&option=Active";
+                url = "SearchServlet?searchValue=&option=New";
             } else {
                 msg = "Active Fail";
 
