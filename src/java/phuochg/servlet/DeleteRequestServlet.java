@@ -12,6 +12,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import phuochg.account.AccountDTO;
 import phuochg.article.ArticleDAO;
 
 /**
@@ -21,6 +23,7 @@ import phuochg.article.ArticleDAO;
 public class DeleteRequestServlet extends HttpServlet {
 
     private static final String HOME_PAGE_ADMIN = "homeForAdmin";
+    private static final String LOGIN_PAGE = "loginPage";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,23 +38,31 @@ public class DeleteRequestServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = HOME_PAGE_ADMIN;
-        
+
         ServletContext context = request.getServletContext();
         Properties siteMap = (Properties) context.getAttribute("SITE_MAP");
         url = (String) siteMap.get(url);
-        
-        try {
-            ArticleDAO articleDao = new ArticleDAO();
-            String titleId = request.getParameter("titleId");
-            String msg = "";
-            if (articleDao.updateArticle("Delete", titleId)) {
-                msg = "Delete Success full";
-                url = "SearchServlet?searchValue=&option=New";
-            } else {
-                msg = "Delete Fail";
 
+        try {
+            HttpSession session = request.getSession();
+            AccountDTO acc = (AccountDTO) session.getAttribute("ACC");
+            String msg = "";
+
+            if (acc == null) {
+                url = (String) siteMap.get(LOGIN_PAGE);
+                msg = "You need Login To Delete!";
+                request.setAttribute("UPDATE_MSG", msg);
+            } else {
+                ArticleDAO articleDao = new ArticleDAO();
+                String titleId = request.getParameter("titleId");
+                if (articleDao.updateArticle("Delete", titleId)) {
+                    msg = "Delete Success full";
+                    url = "SearchServlet?searchValue=&option=New";
+                } else {
+                    msg = "Delete Fail";
+                }
+                request.setAttribute("UPDATE_MSG", msg);
             }
-            request.setAttribute("UPDATE_MSG", msg);
         } catch (Exception e) {
             log("Error at DeleteRequestServlet: " + e.toString());
         } finally {

@@ -38,6 +38,10 @@
                 <c:if test="${not empty requestScope.CREATEACCOUNT_MSG}">
                     <p style="color: red">${requestScope.CREATEACCOUNT_MSG}</p>
                 </c:if>
+                
+                <c:if test="${not empty requestScope.UPDATE_MSG}">
+                    <p style="color: red">${requestScope.UPDATE_MSG}</p>
+                </c:if>
                 <br>
                 <button type="submit" name ="btnAction" class="btn btn-primary">Submit</button>
                 <a class="btn btn-primary" href="registerPage">Register</a>

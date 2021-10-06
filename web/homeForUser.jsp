@@ -31,9 +31,9 @@
         <c:if test="${sessionScope.ACC.roleId eq 'AD'}">
             <c:redirect url="homeForAdmin.jsp"/>
         </c:if>
-            <hr>
-            <a class="btn btn-primary" href="search?searchValue=" >Back Home</a>
-            <hr>
+        <hr>
+        <a class="btn btn-primary" href="search?searchValue=" >Back Home</a>
+        <hr>
 
         <form action="search">
 
@@ -45,36 +45,44 @@
                 <p style="color: red">${requestScope.SEARCH_MSG}</p>
             </c:if>
             <table border="" class="table table-striped">
-                <thead>
+                <c:if test="${requestScope.LIST_ARTICLE == null}">
                     <tr>
-                        <th>No.</th>
-                        <th>Title</th>
-                        <th>Description</th>
-                        <th>Author</th>
-                        <th>PostDate</th>
-                        <th>Content</th>
-                        <th>Action</th>
+                        <td>Nothing to Search</td>
                     </tr>
-                </thead>
-                <tbody>
-                    <c:forEach var="a" items="${requestScope.LIST_ARTICLE}" varStatus="count" >
+
+                </c:if>
+                <c:if test="${requestScope.LIST_ARTICLE != null}">
+                    <thead>
                         <tr>
-                            <td>
-                                ${count.count}
-                                <!-- Them o day -->
-                                <input type="hidden" name="titleId" value="${a.titleId}">
-                            </td>
-                            <td>${a.titleName}</td>
-                            <td>${a.description}</td>
-                            <td>${a.email}</td>
-                            <td>${a.postDate}</td>
-                            <td>${a.contentName}</td>
-                            <td>
-                                <a class="btn btn-warning" href="viewArticleDetail?titleId=${a.titleId}">Details</a>
-                            </td>
+                            <th>No.</th>
+                            <th>Title</th>
+                            <th>Description</th>
+                            <th>Author</th>
+                            <th>PostDate</th>
+                            <th>Content</th>
+                            <th>Action</th>
                         </tr>
-                    </c:forEach>
-                </tbody>
+                    </thead>
+                    <tbody>
+                        <c:forEach var="a" items="${requestScope.LIST_ARTICLE}" varStatus="count" >
+                            <tr>
+                                <td>
+                                    ${count.count}
+                                    <!-- Them o day -->
+                                    <input type="hidden" name="titleId" value="${a.titleId}">
+                                </td>
+                                <td>${a.titleName}</td>
+                                <td>${a.description}</td>
+                                <td>${a.email}</td>
+                                <td>${a.postDate}</td>
+                                <td>${a.contentName}</td>
+                                <td>
+                                    <a class="btn btn-warning" href="viewArticleDetail?titleId=${a.titleId}">Details</a>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                    </tbody>
+                </c:if>
             </table>
             <c:forEach begin = "1" end="${requestScope.page}" var="i">
                 <a href="search?page=${i}&searchValue=">${i} </a> 

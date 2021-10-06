@@ -8,13 +8,14 @@
         <description>ServletContextListener</description>
         <listener-class>phuochg.listener.ContextListener</listener-class>
     </listener>
+    <listener>
+        <description>ServletContextListener</description>
+        <listener-class>phuochg.listener.ContextListener</listener-class>
+    </listener>
+    
     <filter>
         <filter-name>DispatcherFilter</filter-name>
         <filter-class>phuochg.filter.DispatcherFilter</filter-class>
-        <listener>
-            <description>ServletContextListener</description>
-            <listener-class>phuochg.listener.ContextListener</listener-class>
-        </listener>
     </filter>
     <listener>
         <description>ServletContextListener</description>

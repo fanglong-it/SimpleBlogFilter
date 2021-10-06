@@ -13,6 +13,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import phuochg.account.AccountDTO;
 import phuochg.article.ArticleDAO;
 
 /**
@@ -22,7 +24,7 @@ import phuochg.article.ArticleDAO;
 public class AcceptRequestServlet extends HttpServlet {
 
     private static final String HOME_PAGE_ADMIN = "homeForAdmin";
-
+    private static final String LOGIN_PAGE = "loginPage";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -41,18 +43,25 @@ public class AcceptRequestServlet extends HttpServlet {
         url = (String) siteMap.get(url);
         try {
 
-            ArticleDAO articleDao = new ArticleDAO();
-            String titleId = request.getParameter("titleId");
+            HttpSession session = request.getSession();
+            AccountDTO acc = (AccountDTO) session.getAttribute("ACC");
             String msg = "";
-            if (articleDao.updateArticle("Active", titleId)) {
-                msg = "Active Successfull";
-                url = "SearchServlet?searchValue=&option=New";
+
+            if (acc == null) {
+                url = (String) siteMap.get(LOGIN_PAGE);
+                msg = "You need Login To Active!";
+                request.setAttribute("UPDATE_MSG", msg);
             } else {
-                msg = "Active Fail";
-
+                ArticleDAO articleDao = new ArticleDAO();
+                String titleId = request.getParameter("titleId");
+                if (articleDao.updateArticle("Active", titleId)) {
+                    msg = "Delete Success full";
+                    url = "SearchServlet?searchValue=&option=New";
+                } else {
+                    msg = "Delete Fail";
+                }
+                request.setAttribute("UPDATE_MSG", msg);
             }
-            request.setAttribute("UPDATE_MSG", msg);
-
         } catch (Exception e) {
             log("Error at AcceptRequestServlet: " + e.toString());
         } finally {

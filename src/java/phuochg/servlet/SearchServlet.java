@@ -100,8 +100,13 @@ public class SearchServlet extends HttpServlet {
                 } else {
                     url = (String) siteMap.get(HOME_PAGE_USER);
                 }
+                request.setAttribute("SEARCH_MSG_ADMIN", msg);
+                request.setAttribute("SEARCH_MSG_USER", msg);
+            } else {
+                msg = "Nothing!!!";
+                request.setAttribute("SEARCH_MSG_ADMIN", msg);
+                request.setAttribute("SEARCH_MSG_USER", msg);
             }
-            request.setAttribute("SEARCH_MSG", msg);
 
             //Get MAP
         } catch (Exception e) {

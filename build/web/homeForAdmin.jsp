@@ -64,52 +64,66 @@
                 <option value="Delete">Delete</option>
             </select>
             <button class="btn btn-primary">Search</button>
+
             <c:if test="${requestScope.UPDATE_MSG != null}">
                 <p style="color: red">${requestScope.UPDATE_MSG}</p>
             </c:if>
 
-            <c:if test="${requestScope.SEARCH_MSG != null}">
-                <p style="color: red">${requestScope.SEARCH_MSG}</p>
+            <c:if test="${requestScope.SEARCH_MSG_ADMIN != null}">
+                <p style="color: red">${requestScope.SEARCH_MSG_ADMIN}</p>
             </c:if>
 
-            <table border="" class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>Title Id</th>
-                        <th>Title</th>
-                        <th style="width: 30%">Description</th>
-                        <th>Author</th>
-                        <th>PostDate</th>
-                        <th>Content</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <c:forEach var="a" items="${requestScope.LIST_ARTICLE}">
-                        <tr>
-                            <td>${a.titleId}
-                                <input type="hidden" name="titleId" value="${a.titleId}">
-                            </td>
-                            <td>${a.titleName}</td>
-                            <td>${a.description}</td>
-                            <td>${a.email}</td>
-                            <td>${a.postDate}</td>
-                            <td>${a.contentId}</td>
-                            <td>${a.status}</td>
-                            <td>
-                                <c:if test="${a.status eq 'Active'}">
-                                    <a href="deleteRequest?titleId=${a.titleId}" class="btn btn-danger">Delete</a>
-                                </c:if>
-                                <c:if test="${a.status eq 'New'}">
-                                    <a href="deleteRequest?titleId=${a.titleId}" class="btn btn-danger">Delete</a>
-                                    <a href="acceptRequest?titleId=${a.titleId}" class="btn btn-success">Accept</a>
-                                </c:if>
 
-                            </td>
+            <table border="" class="table table-striped">
+                <c:if test="${requestScope.LIST_ARTICLE == null}">
+                    <tr>
+                        <td>Nothing to Search</td>
+                    </tr>
+
+                </c:if>
+                <c:if test="${requestScope.LIST_ARTICLE != null}">
+                    <thead>
+                        <tr>
+                            <th>Title Id</th>
+                            <th>Title</th>
+                            <th style="width: 30%">Description</th>
+                            <th>Author</th>
+                            <th>PostDate</th>
+                            <th>Content</th>
+                            <th>Status</th>
+                            <th>Action</th>
                         </tr>
-                    </c:forEach>
-                </tbody>
+                    </thead>
+                    <tbody>
+
+                        <c:forEach var="a" items="${requestScope.LIST_ARTICLE}">
+                            <tr>
+                                <td>${a.titleId}
+                                    <input type="hidden" name="titleId" value="${a.titleId}">
+                                </td>
+                                <td>${a.titleName}</td>
+                                <td>${a.description}</td>
+                                <td>${a.email}</td>
+                                <td>${a.postDate}</td>
+                                <td>${a.contentId}</td>
+                                <td>${a.status}</td>
+                                <td>
+                                    <c:if test="${a.status eq 'Active'}">
+                                        <a href="deleteRequest?titleId=${a.titleId}" class="btn btn-danger">Delete</a>
+                                    </c:if>
+                                    <c:if test="${a.status eq 'New'}">
+                                        <a href="deleteRequest?titleId=${a.titleId}" class="btn btn-danger">Delete</a>
+                                        <a href="acceptRequest?titleId=${a.titleId}" class="btn btn-success">Accept</a>
+                                    </c:if>
+
+                                </td>
+                            </tr>
+                        </c:forEach>
+
+
+
+                    </tbody>
+                </c:if>
             </table>
 
 
